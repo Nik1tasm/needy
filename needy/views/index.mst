@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Entities</title>
+  {{> head }} 
+</head>
+<body>
+
+  {{> header }}
+    
+    <form action="http://localhost:4000/events" class="search" method="get">
+      Search:<br>
+      <input type="text" name="search" placeholder="Something..."><br>
+
+      <input type="submit"  value="search">
+      <input type="hidden" name="page" value="0"/>
+    </form>
+
+
+    {{#isEmpty}}
+            <h2 style="margin-top: 20px;">Nothing here</h2>
+    {{/isEmpty}}
+
+        {{^isEmpty}}  
+            <div class="EntitiesList">
+                <ul>
+          {{#Events}}
+                <li><a href="http://localhost:4000/events/{{id}}">{{name}}</a></li>
+          {{/Events}}
+                </ul>
+            </div>  
+
+          <div class="paging">
+          {{#prevPageVisibility}}
+            <a class="prevEvent" href="http://localhost:4000/events/?page={{prevPage}}&search={{searchString}}">«-prev{{prevPage}}</a>
+          {{/prevPageVisibility}}
+            
+          {{#nextPageVisibility}}
+            <a class="nextEvent" href="http://localhost:4000/events/?page={{nextPage}}&search={{searchString}}">next-»{{nextPage}}</a>
+          {{/nextPageVisibility}}
+
+          </div> 
+        {{/isEmpty}}
+        <form action="http://localhost:4000/events/new" method="get" class="addButton">
+            <input type="submit" value="Add event"/>
+        </form>
+    
+    {{> footer }}
+</body>
+</html>
